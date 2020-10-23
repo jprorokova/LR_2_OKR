@@ -1,19 +1,18 @@
-﻿var users = [
+﻿var todolist = [
     {
         id: 1,
-        name: "Bob",
-        address: "Manila",
-        age: 27
+        name: "Football",
+        address: "school",
+        date: "2020-01-12",
+        time: "21:00"
     },
     {
         id: 2,
-        name: "Harry",
-        address: "Baguio",
-        age: 32
+        name: "Homework"
     }
 ];
 
-$.each(users, function (i, user) {
+$.each(todolist, function (i, user) {
     appendToUsrTable(user);
 });
 
@@ -31,7 +30,7 @@ $("form#addUser").submit(function () {
         $(this).serializeArray().map(function (data) {
             user[data.name] = data.value;
         });
-        var lastUser = users[Object.keys(users).sort().pop()];
+        var lastUser = todolist[Object.keys(todolist).sort().pop()];
         user.id = lastUser.id + 1;
 
         addUser(user);
@@ -41,12 +40,12 @@ $("form#addUser").submit(function () {
 });
 
 function addUser(user) {
-    users.push(user);
+    todolist.push(user);
     appendToUsrTable(user);
 }
 
 function editUser(id) {
-    users.forEach(function (user, i) {
+    todolist.forEach(function (user, i) {
         if (user.id == id) {
             $(".modal-body").empty().append(`
                 <form id="updateUser" action="">
@@ -69,11 +68,11 @@ function editUser(id) {
 }
 
 function deleteUser(id) {
-    var action = confirm("Are you sure you want to delete this user?");
-    var msg = "User deleted successfully!";
-    users.forEach(function (user, i) {
+    var action = confirm("Are you sure you want to delete this event?");
+    var msg = "Event was deleted successfully!";
+    todolist.forEach(function (user, i) {
         if (user.id == id && action != false) {
-            users.splice(i, 1);
+            todolist.splice(i, 1);
             $("#userTable #user-" + user.id).remove();
             flashMessage(msg);
         }
@@ -81,10 +80,10 @@ function deleteUser(id) {
 }
 
 function updateUser(id) {
-    var msg = "User updated successfully!";
+    var msg = "Event updated successfully!";
     var user = {};
     user.id = id;
-    users.forEach(function (user, i) {
+    todolist.forEach(function (user, i) {
         if (user.id == id) {
             $("#updateUser").children("input").each(function () {
                 var value = $(this).val();
@@ -99,8 +98,8 @@ function updateUser(id) {
                     user.time = value;
                 }
             });
-            users.splice(i, 1);
-            users.splice(user.id - 1, 0, user);
+            todolist.splice(i, 1);
+            todolist.splice(user.id - 1, 0, user);
             $("#userTable #user-" + user.id).children(".userData").each(function () {
                 var attr = $(this).attr("name");
                 if (attr == "name") {
@@ -134,10 +133,10 @@ function appendToUsrTable(user) {
             '<td class="userData" name="date">${user.date}</td>
             '<td class="userData" name="time">${user.time}</td>
             '<td align="center">
-                <button class="btn btn-success form-control" onClick="editUser(${user.id})" data-toggle="modal" data-target="#myModal")">EDIT</button>
+                <button class="btn btn-primary form-control" onClick="editUser(${user.id})" data-toggle="modal" data-target="#myModal")">EDIT</button>
             </td>
             <td align="center">
-                <button class="btn btn-danger form-control" onClick="deleteUser(${user.id})">DELETE</button>
+                <button class="btn btn-primary form-control" onClick="deleteUser(${user.id})">DELETE</button>
             </td>
         </tr>
     `);
