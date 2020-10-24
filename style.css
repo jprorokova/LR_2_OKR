@@ -1,0 +1,22 @@
+
+body{
+  width: 100%;
+  height: auto;
+  background: url(691.jpg) center;
+  background-size: cover;
+}
+
+h1,h2 {
+  font-weight: 200;
+  margin: 0.4em 0;
+}
+h1 { font-size: 3.5em; }
+h2 {
+  color: #888;
+  font-size: 2em;
+}
+
+h3{
+    font-family: VERDANA;
+}
+
