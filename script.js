@@ -26,7 +26,7 @@ $("form#addUser").submit(function () {
     var addressInput = $('input[name="address"]').val().trim();
     var dateInput = $('input[name="date"]').val().trim();
     var timeInput = $('input[name="time"]').val().trim();
-    if (nameInput && addressInput && dateInput && timeInput) {
+    if (nameInput) {
         $(this).serializeArray().map(function (data) {
             user[data.name] = data.value;
         });
