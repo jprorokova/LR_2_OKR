@@ -2,13 +2,16 @@
     {
         id: 1,
         name: "Football",
-        address: "school",
+        address: "Stadium",
         date: "2020-01-12",
-        time: "21:00"
+        time: "18:00"
     },
     {
         id: 2,
-        name: "Homework"
+        name: "Homework",
+        address: "School",
+        date: "2020-09-04",
+        time: "12:00"
     }
 ];
 
@@ -23,9 +26,9 @@ $("form").submit(function (e) {
 $("form#addUser").submit(function () {
     var user = {};
     var nameInput = $('input[name="name"]').val().trim();
-    //var addressInput = $('input[name="address"]').val().trim();
-    //var dateInput = $('input[name="date"]').val().trim();
-    //var timeInput = $('input[name="time"]').val().trim();
+    var addressInput = $('input[name="address"]').val().trim();
+    var dateInput = $('input[name="date"]').val().trim();
+    var timeInput = $('input[name="time"]').val().trim();
     if (nameInput) {
         $(this).serializeArray().map(function (data) {
             user[data.name] = data.value;
@@ -34,7 +37,6 @@ $("form#addUser").submit(function () {
         user.id = lastUser.id + 1;
 
         addUser(user);
-        
     } else {
         alert("All fields must have a valid value.");
     }
@@ -70,18 +72,18 @@ function editUser(id) {
 
 function deleteUser(id) {
     var action = confirm("Are you sure you want to delete this event?");
-    //var msg = "Event was deleted successfully!";
+    var msg = "Event was deleted successfully!";
     todolist.forEach(function (user, i) {
         if (user.id == id && action != false) {
             todolist.splice(i, 1);
             $("#userTable #user-" + user.id).remove();
-            //flashMessage(msg);
+            flashMessage(msg);
         }
     });
 }
 
 function updateUser(id) {
-    //var msg = "Event updated successfully!";
+    var msg = "Event updated successfully!";
     var user = {};
     user.id = id;
     todolist.forEach(function (user, i) {
@@ -114,21 +116,21 @@ function updateUser(id) {
                 }
             });
             $(".modal").modal("toggle");
-            //flashMessage(msg);
+            flashMessage(msg);
         }
     });
 }
 
-//function flashMessage(msg) {
-//    $(".flashMsg").remove();
-//    $(".row").prepend(`
-//        <div class="col-sm-12"><div class="flashMsg alert alert-success alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <strong>${msg}</strong></div></div>
-//    `);
-//}
+function flashMessage(msg) {
+    $(".flashMsg").remove();
+    $(".row").prepend(`
+        <div class="col-sm-12"><div class="flashMsg alert alert-success alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <strong>${msg}</strong></div></div>
+    `);
+}
 
 function appendToUsrTable(user) {
     $("#userTable > tbody:last-child").append(`
-        <tr class="animate__animated animate__fadeInLeft" id="user-${user.id}">
+        <tr class="animate__animated animate__fadeInLeft"  id="user-${user.id}">
             <td class="userData" name="name">${user.name}</td>
             '<td class="userData" name="address">${user.address}</td>
             '<td class="userData" name="date">${user.date}</td>
@@ -142,3 +144,63 @@ function appendToUsrTable(user) {
         </tr>
     `);
 }
+
+//ANIMATION
+var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+  // INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+  document.body.appendChild(css);
+};
+
+//background
