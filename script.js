@@ -23,9 +23,9 @@ $("form").submit(function (e) {
 $("form#addUser").submit(function () {
     var user = {};
     var nameInput = $('input[name="name"]').val().trim();
-    var addressInput = $('input[name="address"]').val().trim();
-    var dateInput = $('input[name="date"]').val().trim();
-    var timeInput = $('input[name="time"]').val().trim();
+    //var addressInput = $('input[name="address"]').val().trim();
+    //var dateInput = $('input[name="date"]').val().trim();
+    //var timeInput = $('input[name="time"]').val().trim();
     if (nameInput) {
         $(this).serializeArray().map(function (data) {
             user[data.name] = data.value;
@@ -34,6 +34,7 @@ $("form#addUser").submit(function () {
         user.id = lastUser.id + 1;
 
         addUser(user);
+        
     } else {
         alert("All fields must have a valid value.");
     }
@@ -69,18 +70,18 @@ function editUser(id) {
 
 function deleteUser(id) {
     var action = confirm("Are you sure you want to delete this event?");
-    var msg = "Event was deleted successfully!";
+    //var msg = "Event was deleted successfully!";
     todolist.forEach(function (user, i) {
         if (user.id == id && action != false) {
             todolist.splice(i, 1);
             $("#userTable #user-" + user.id).remove();
-            flashMessage(msg);
+            //flashMessage(msg);
         }
     });
 }
 
 function updateUser(id) {
-    var msg = "Event updated successfully!";
+    //var msg = "Event updated successfully!";
     var user = {};
     user.id = id;
     todolist.forEach(function (user, i) {
@@ -113,21 +114,21 @@ function updateUser(id) {
                 }
             });
             $(".modal").modal("toggle");
-            flashMessage(msg);
+            //flashMessage(msg);
         }
     });
 }
 
-function flashMessage(msg) {
-    $(".flashMsg").remove();
-    $(".row").prepend(`
-        <div class="col-sm-12"><div class="flashMsg alert alert-success alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <strong>${msg}</strong></div></div>
-    `);
-}
+//function flashMessage(msg) {
+//    $(".flashMsg").remove();
+//    $(".row").prepend(`
+//        <div class="col-sm-12"><div class="flashMsg alert alert-success alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <strong>${msg}</strong></div></div>
+//    `);
+//}
 
 function appendToUsrTable(user) {
     $("#userTable > tbody:last-child").append(`
-        <tr id="user-${user.id}">
+        <tr class="animate__animated animate__fadeInLeft" id="user-${user.id}">
             <td class="userData" name="name">${user.name}</td>
             '<td class="userData" name="address">${user.address}</td>
             '<td class="userData" name="date">${user.date}</td>
