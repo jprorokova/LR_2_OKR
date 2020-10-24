@@ -8,37 +8,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/script.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        body {
-            width: 100%;
-            height: auto;
-            background: url(691.jpg) center;
-            background-size: cover;
-        }
-    </style>
+
 </head>
 <body>
 
-
     
-    <!--<img src="692.jpg" style="min-width: initial; height: auto; position:absolute; border-image-repeat: repeat;">-->
-      
-    <section>
+    <section class="fon">
         <div class="py-5" style="margin:0px 10px;">
         <div class="container-fluid" style="position:relative; background-color:white; padding: 30px; margin:auto auto; min-height:400px; max-width: 1000px; border-radius:10px 10px; border: 1px solid gray">
 
             <div class="row" style="justify-content:center; text-align:center">
-
                 <div class="col-lg-9">
-
-                    <h3 style="text-transform:uppercase; font-weight:bold">
-
-                       - Write your plans here -
-
-                    </h3>
+	                <h1 style="font-family: VERDANA">Write here your 
+					  <span
+					     class="txt-rotate"
+					     data-period="2000"
+					     data-rotate='[ "plans.", "events.", "notes."]'>
+					  </span>
+					</h1>
                 </div>
 
                 <div class="container-fluid" style="justify-content: center; text-align: center">
@@ -47,10 +38,10 @@
                             <h3>ADD EVENT</h3>
                             <form id="addUser" action="">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="name" placeholder="What to do" required>
+                                    <input class="form-control" type="text" name="name" placeholder="Event" required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="address" placeholder="Where">
+                                    <input class="form-control" type="text" name="address" placeholder="Location">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" type="date" name="date" placeholder="Date">
@@ -66,10 +57,10 @@
                             
                             <table id="userTable" class="table table-striped">
                                 <tr>
-                                    <th>What to do</th>
-                                    <th>Where</th>
+                                    <th>Event</th>
+                                    <th>Location</th>
                                     <th>Date</th>
-                                    <th colspan="4">When</th>
+                                    <th colspan="4">Time</th>
                                 </tr>
                             </table>
                         </div>
